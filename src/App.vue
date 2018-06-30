@@ -1,18 +1,59 @@
 <template>
   <div id="app">
-    <header>
-      <span>Vue.js PWA</span>
-    </header>
-    <main>
-      <img src="./assets/logo.png" alt="Vue.js PWA">
-      <router-view></router-view>
-    </main>
+    <v-app>
+      <v-navigation-drawer
+        clipped
+        fixed
+        v-model="drawer"
+        app
+      >
+        <v-list dense>
+        </v-list>
+      </v-navigation-drawer>
+      <v-toolbar
+        clipped-left
+        fixed
+        app
+      >
+        <v-toolbar-side-icon
+          @click.stop="drawer = !drawer"
+        >
+        </v-toolbar-side-icon>
+        <v-toolbar-title>Block-in</v-toolbar-title>
+      </v-toolbar>
+      <v-content>
+      <v-container fluid fill-height>
+        <v-layout justify-center align-center>
+          <v-flex shrink>
+            <v-tooltip right>
+              <v-btn
+                icon
+                large
+                :href="source"
+                target="_blank"
+                slot="activator"
+              >
+                <v-icon large>code</v-icon>
+              </v-btn>
+              <span>Source</span>
+            </v-tooltip>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+    <v-footer app fixed>
+      <span>&copy; 2017</span>
+    </v-footer>
+    </v-app>
   </div>
 </template>
 
 <script>
 export default {
   name: 'app',
+  data: () => ({
+    drawer: true,
+  }),
 };
 </script>
 
