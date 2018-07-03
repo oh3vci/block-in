@@ -8,11 +8,17 @@ import App from './App';
 import router from './router';
 
 Vue.config.productionTip = false;
-Vue.use(Vuetify);
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#6200ee',
+    secondary: '#3b00dd',
+    emphasis: '#03dac4',
+  },
+});
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  template: '<App/>',
+  template: '<App />',
   components: { App },
 });
