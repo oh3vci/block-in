@@ -9,6 +9,12 @@
         <v-icon>fingerprint</v-icon>
       </v-btn>
       <v-toolbar-title>BLOCK - IN</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-btn icon @click="goNextPage()">
+          <v-icon>close</v-icon>
+        </v-btn>
+      </v-toolbar-items>
     </v-toolbar>
 
     <div>
@@ -91,7 +97,7 @@ export default {
   name: 'ConfirmPage',
   methods: {
     goNextPage() {
-      this.$router.push({ name: 'CheckContractionPage' });
+      this.$router.push({ name: 'MyPage' });
     },
   },
 };
