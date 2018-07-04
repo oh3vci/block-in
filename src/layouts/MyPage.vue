@@ -175,11 +175,6 @@ export default {
 .customer {
   font-weight: bold;
 }
-.charge-button {
-  display: flex;
-  justify-content : flex-end !important;
-  -webkit-justify-content: flex-end !important;
-}
 .section--head {
   font-weight: bold;
   font-size: 18px;

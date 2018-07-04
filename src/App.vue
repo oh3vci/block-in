@@ -44,4 +44,9 @@ export default {
 .v-alert .v-alert__icon.v-icon {
   color: #fafafa !important;
 }
+.charge-button {
+  display: flex;
+  justify-content : flex-end !important;
+  -webkit-justify-content: flex-end !important;
+}
 </style>

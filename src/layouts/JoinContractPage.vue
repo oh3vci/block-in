@@ -42,7 +42,7 @@
           <v-flex xs8>
             <div class="input-hint">Type your link</div>
           </v-flex>
-          <v-flex xs4>
+          <v-flex class="charge-button" xs4>
             <v-btn class="enter-button" color="primary" @click="goNextPage()">ENTER</v-btn>
           </v-flex>
         </v-layout>
