@@ -22,7 +22,7 @@
               <v-layout>
                 <v-flex xs12 column>
                   <div>
-                    <div class="headline customer">JAEHO SUNG</div>
+                    <div class="headline customer">{{ name }}</div>
                     <div>user</div>
                   </div>
                 </v-flex>
@@ -30,7 +30,7 @@
               <v-layout>
                 <v-flex xs8>
                   <div class="text-primary section--head">Balance</div>
-                  <div class="balance-amount">$70.50</div>
+                  <div class="balance-amount">${{ totalPrice }}</div>
                 </v-flex>
                 <v-flex xs4>
                   <v-btn color="primary">CHARGE</v-btn>
@@ -129,7 +129,7 @@
 
 
 <script>
-import { getAccounts, callMethod, sendMethod } from '../util/api';
+import { callMethod } from '../util/api';
 
 export default {
   name: 'MyPage',
@@ -138,25 +138,38 @@ export default {
       this.$router.push({ name: 'JoinContractPage' });
     },
   },
+  data() {
+    return {
+      name: '',
+      deposit: 0,
+      totalPrice: 0,
+      phone: '',
+    };
+  },
   mounted() {
-    getAccounts();
-
     const payloadCallMethod = {
-      method: 'contractOwner',
-      from: '0x98bcD3D00454BEeCAf45Cc204F68962F7C153Cfd',
-      param: [],
+      method: 'getCustomer',
+      from: '0xd1a81cF0A6EBFbd8CE45e95f73f553bD2A34dCeE',
+      param: ['0xd1a81cF0A6EBFbd8CE45e95f73f553bD2A34dCeE'],
     };
-    callMethod(payloadCallMethod).then(console.log);
+    callMethod(payloadCallMethod).then((res) => {
+      const data = res.data.ret;
 
-    const payloadSendMethod = {
-      method: 'registHome',
-      from: '0x98bcD3D00454BEeCAf45Cc204F68962F7C153Cfd',
-      gas: 100000,
-      param: [
-        '0x98bcD3D00454BEeCAf45Cc204F68962F7C153Cfd',
-      ],
-    };
-    sendMethod(payloadSendMethod).then(console.log);
+      this.name = data._name;
+      this.deposit = data._deposit;
+      this.phone = data._phone;
+      this.totalPrice = data._totalPrice;
+    });
+
+    // const payloadSendMethod = {
+    //   method: 'registHome',
+    //   from: '0xd1a81cF0A6EBFbd8CE45e95f73f553bD2A34dCeE',
+    //   gas: 100000,
+    //   param: [
+    //     '0xd1a81cF0A6EBFbd8CE45e95f73f553bD2A34dCeE',
+    //   ],
+    // };
+    // sendMethod(payloadSendMethod).then(console.log);
   },
 };
 </script>

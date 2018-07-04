@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { LOCAL_URL, HDAC_CONTRACT } from './constant';
+import { SERVER_URL, HDAC_CONTRACT } from './constant';
 
 const instance = axios.create({
-  baseURL: LOCAL_URL,
+  baseURL: SERVER_URL,
 });
 
 instance.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
