@@ -18,7 +18,7 @@
     </v-toolbar>
 
     <v-list three-line>
-      <v-list-title>
+      <div class="list-title">
         <div class="text-primary section--head">Owner</div>
         <v-layout row class="flex">
           <v-flex xs2>
@@ -33,18 +33,18 @@
             </div>
           </v-flex>
         </v-layout>
-      </v-list-title>
+      </div>
       <v-divider></v-divider>
-      <v-list-title>
+      <div class="list-title">
         <v-flex xs12 column>
           <div class="text-primary section--head">Date</div>
           <div class="describe">
             <div>18.06.24 10:00 AM ~ 18.06.26 15:00 PM</div>
           </div>
         </v-flex>
-      </v-list-title>
+      </div>
       <v-divider></v-divider>
-      <v-list-title>
+      <div class="list-title">
         <v-flex xs12 column>
           <div class="text-primary section--head">IoT Devices</div>
           <v-layout row wrap class="device-wrapper">
@@ -108,7 +108,7 @@
           </v-layout>
 
         </v-flex>
-      </v-list-title>
+      </div>
     </v-list>
 
     <v-footer
@@ -137,6 +137,11 @@
 <script>
 export default {
   name: 'SelectDevicesPage',
+  methods: {
+    goNextPage() {
+      this.$router.push({ name: 'ConfirmPage' });
+    },
+  },
 };
 </script>
 
@@ -183,10 +188,10 @@ export default {
 .v-btn--floating .v-btn__content i {
   margin-top: 24px;
 }
-v-list-title > .flex {
+.list-title > .flex {
   padding: 16px !important;
 }
-v-list-title > .text-primary {
+.list-title > .text-primary {
   padding-left: 16px;
 }
 .device-wrapper {
