@@ -3,6 +3,7 @@
     <v-toolbar
       color="primary"
       dark
+      flat
     >
       <v-btn icon>
         <v-icon>fingerprint</v-icon>
@@ -28,7 +29,7 @@
               </v-layout>
               <v-layout>
                 <v-flex xs8>
-                  <div class="text-primary balance">Balance</div>
+                  <div class="text-primary section--head">Balance</div>
                   <div class="balance-amount">$70.50</div>
                 </v-flex>
                 <v-flex xs4>
@@ -163,28 +164,6 @@ export default {
 
 
 <style scoped>
-.v-toolbar, .v-footer {
-  height: 8.75% !important;
-}
-.v-toolbar__title:not(:first-child) {
-  margin-left: 0;
-}
-.v-avatar {
-  vertical-align: top !important;
-}
-.v-btn--floating {
-  border: 5px solid #fbfbfb !important;
-  box-shadow: none;
-  width: 64px;
-  height: 64px;
-}
-.v-btn--floating .v-btn__content i {
-  margin-top: 24px;
-}
-.balance {
-  font-weight: bold;
-  font-size: 16px;
-}
 .balance-amount {
   font-size: 48px;
 }
@@ -200,6 +179,12 @@ export default {
 </style>
 
 <style>
+.v-toolbar, .v-footer {
+  height: 8.75% !important;
+}
+.v-toolbar__title:not(:first-child) {
+  margin-left: 0;
+}
 .section--head {
   font-weight: bold;
   font-size: 18px;
@@ -213,5 +198,17 @@ export default {
 }
 .text-primary {
   color: #6200ee;
+}
+.v-avatar {
+  vertical-align: top !important;
+}
+.v-btn--floating {
+  border: 5px solid #fbfbfb !important;
+  box-shadow: none;
+  width: 64px;
+  height: 64px;
+}
+.v-btn--floating .v-btn__content i {
+  margin-top: 24px;
 }
 </style>
