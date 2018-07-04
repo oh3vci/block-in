@@ -105,19 +105,8 @@ export default {
 
 
 <style scoped>
-.describe {
-  display: inline-block;
-  margin-left: 8px;
-}
 .total-price > div {
-  text-align: center;
-  vertical-align: middle;
-  font-size: 24px;
-  font-weight: bold;
   color: #6200ee;
-}
-.device-wrapper {
-  margin-bottom: 20px;
 }
 .device-wrapper .flex:first-child {
   padding-right: 4px;
@@ -127,14 +116,6 @@ export default {
   padding-left: 4px;
   margin-right: 8px;
 }
-.price {
-  font-weight: bold;
-  font-size: 24px;
-}
-.white--text strong {
-  padding-left: 16px;
-  font-size: 20px;
-}
 .v-alert {
   margin: 16px;
   font-size: 24px;
@@ -142,8 +123,6 @@ export default {
     0 3px 5px -1px rgba(0, 0, 0, .2),
     0 6px 10px 0 rgba(0, 0, 0, .14),
     0 1px 18px 0 rgba(0, 0, 0, .12);
-}
-.v-alert {
   border: none !important;
 }
 </style>
