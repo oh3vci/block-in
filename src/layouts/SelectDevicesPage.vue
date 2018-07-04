@@ -48,8 +48,7 @@
         <v-flex xs12 column>
           <div class="text-primary section--head">IoT Devices</div>
           <v-layout row wrap class="device-wrapper">
-
-            <v-flex class="device" @click="selectDevice()">
+            <v-flex>
               <v-card>
                 <v-container fluid fill-height pa-2>
                   <v-layout fill-height>
@@ -139,6 +138,16 @@ import { callMethod } from '../util/api';
 
 export default {
   name: 'SelectDevicesPage',
+  data() {
+    return {
+      account: '0xeB6D5b1bD8335bFAa4d8A6BaA89BC8504b7BdD04',
+      ownerName: '',
+      ownerPhone: '',
+      deposit: 0,
+      numDevices: 0,
+      devices: []     //_name, _type, _fee, _state
+    };
+  },
   methods: {
     goNextPage() {
       this.$router.push({ name: 'CheckContractionPage' });
@@ -207,16 +216,6 @@ export default {
 
     }
   },
-  data() {
-    return {
-      account: '0xeB6D5b1bD8335bFAa4d8A6BaA89BC8504b7BdD04',
-      ownerName: '',
-      ownerPhone: '',
-      deposit: 0,
-      numDevices: 0,
-      devices: []     //_name, _type, _fee, _state
-    };
-  },
   mounted() {
     this.getOwner();
     this.getDevices();
@@ -226,8 +225,8 @@ export default {
 
 
 <style scoped>
-.application {
-  background-color: #ffffff !important;
+.application .theme--light.v-list, .theme--light .v-list {
+  background-color: #fafafa;
 }
 .list-title > .flex {
   padding: 16px !important;

@@ -30,7 +30,7 @@ export default {
   box-shadow: none;
 }
 .v-btn--floating .v-btn__content {
-  border: 6px solid #fafafa !important;
+  border: 6px solid #fafafa;
 }
 .v-btn--floating .v-btn__content i {
   margin-top: 36px;
