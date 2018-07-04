@@ -133,19 +133,8 @@ export default {
 
 
 <style scoped>
-.describe {
-  display: inline-block;
-  margin-left: 8px;
-}
 .total-price > div {
-  text-align: center;
-  vertical-align: middle;
-  font-size: 24px;
-  font-weight: bold;
   color: #6200ee;
-}
-.device-wrapper {
-  margin-bottom: 20px;
 }
 .device-wrapper .flex:first-child {
   padding-right: 4px;
@@ -154,13 +143,5 @@ export default {
 .device-wrapper .flex:last-child {
   padding-left: 4px;
   margin-right: 8px;
-}
-.price {
-  font-weight: bold;
-  font-size: 24px;
-}
-.white--text strong {
-  padding-left: 16px;
-  font-size: 20px;
 }
 </style>

@@ -49,7 +49,7 @@
           <div class="text-primary section--head">IoT Devices</div>
           <v-layout row wrap class="device-wrapper">
 
-            <v-flex>
+            <v-flex class="device" @click="selectDevice()">
               <v-card>
                 <v-container fluid fill-height pa-2>
                   <v-layout fill-height>
@@ -228,34 +228,16 @@ export default {
 .application {
   background-color: #ffffff !important;
 }
-.section--head {
-  font-weight: bold;
-  font-size: 18px;
-}
-.describe {
-  display: inline-block;
-  margin-left: 8px;
-}
-.text-primary {
-  color: #6200ee;
-}
 .list-title > .flex {
   padding: 16px !important;
 }
 .list-title > .text-primary {
   padding-left: 16px;
 }
-.device-wrapper {
-  margin-bottom: 20px;
-}
 .device-wrapper .flex:first-child {
   padding-right: 8px;
 }
 .device-wrapper .flex:last-child {
   padding-left: 8px;
-}
-.price {
-  font-weight: bold;
-  font-size: 24px;
 }
 </style>

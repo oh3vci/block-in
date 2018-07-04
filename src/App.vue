@@ -49,4 +49,32 @@ export default {
   justify-content : flex-end !important;
   -webkit-justify-content: flex-end !important;
 }
+.section--head {
+  font-weight: bold;
+  font-size: 18px;
+}
+.text-primary {
+  color: #6200ee;
+}
+.device-wrapper {
+  margin-bottom: 20px;
+}
+.describe {
+  display: inline-block;
+  margin-left: 8px;
+}
+.price {
+  font-weight: bold;
+  font-size: 24px;
+}
+.total-price > div {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 24px;
+  font-weight: bold;
+}
+.white--text strong {
+  padding-left: 16px;
+  font-size: 20px;
+}
 </style>

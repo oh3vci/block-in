@@ -169,27 +169,7 @@ export default {
 .balance-amount {
   font-size: 48px;
 }
-.total-price > div {
-  text-align: center;
-  vertical-align: middle;
-  font-size: 24px;
-  font-weight: bold;
-}
 .customer {
   font-weight: bold;
-}
-.section--head {
-  font-weight: bold;
-  font-size: 18px;
-}
-.describe {
-  display: inline-block;
-  margin-left: 8px;
-}
-.text-primary {
-  color: #6200ee;
-}
-.v-avatar {
-  vertical-align: top !important;
 }
 </style>
