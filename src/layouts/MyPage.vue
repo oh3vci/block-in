@@ -61,7 +61,50 @@
                   </div>
                 </v-flex>
                 <v-flex class="charge-button" xs4>
-                  <v-btn color="primary">LEAVE</v-btn>
+
+                  <v-layout row justify-center>
+                    <v-dialog v-model="dialog" persistent max-width="290">
+                      <v-btn slot="activator" color="primary">LEAVE</v-btn>
+                      <v-card>
+                        <v-card-title class="headline">Contract</v-card-title>
+                        <v-list-tile>
+                          <v-list-tile-avatar>
+                            <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y">
+                          </v-list-tile-avatar>
+                          <v-list-tile-content>
+                            <v-list-tile-title>Air Conditioner</v-list-tile-title>
+                            <v-list-tile-sub-title>$2.0</v-list-tile-sub-title>
+                          </v-list-tile-content>
+                        </v-list-tile>
+                        <v-list-tile>
+                          <v-list-tile-avatar>
+                            <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y">
+                          </v-list-tile-avatar>
+                          <v-list-tile-content>
+                            <v-list-tile-title>Air Conditioner</v-list-tile-title>
+                            <v-list-tile-sub-title>$2.0</v-list-tile-sub-title>
+                          </v-list-tile-content>
+                        </v-list-tile>
+                        <v-divider></v-divider>
+                        <v-list-tile>
+                          <v-list-tile-content>
+                            <v-list-tile-sub-title>Total Usage: $7.5</v-list-tile-sub-title>
+                          </v-list-tile-content>
+                        </v-list-tile>
+                        <v-list-tile>
+                          <v-list-tile-content>
+                            <v-list-tile-sub-title>Refund: $13.5</v-list-tile-sub-title>
+                          </v-list-tile-content>
+                        </v-list-tile>
+                        <v-divider></v-divider>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn flat @click.native="dialog = false">OK</v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </v-layout>
+
                 </v-flex>
               </v-layout>
               <v-layout>
@@ -81,7 +124,7 @@
                     </v-layout>
                     <v-layout>
                       <v-flex xs12 flexbox>
-                        <v-btn block color="primary" dark>
+                        <v-btn block color="tertiary" dark>
                           <v-icon>share</v-icon>
                         </v-btn>
                       </v-flex>
@@ -101,7 +144,7 @@
                     </v-layout>
                     <v-layout>
                       <v-flex xs12 flexbox>
-                        <v-btn block color="primary" dark>
+                        <v-btn block color="tertiary" dark>
                           <v-icon>share</v-icon>
                         </v-btn>
                       </v-flex>
@@ -219,7 +262,8 @@ export default {
       deposit: 0,
       totalPrice: 0,
       phone: '',
-      isCheckedin: false,
+      isCheckedin: true,
+      dialog: false,
     };
   },
   mounted() {
@@ -271,5 +315,23 @@ export default {
 }
 .v-card {
   border: solid 1px rgba(0, 0, 0, 0.12);
+}
+.v-dialog .v-card, .v-dialog--persistent .v-card, .v-dialog--active .v-card {
+  background-color: #893eff;
+  border-radius: 5px;
+}
+.v-dialog .v-card, .v-dialog .v-card .v-card__actions .v-btn {
+  color: white !important;
+}
+.v-divider {
+  background-color: white;
+  width: 90%;
+  margin-left: 5%;
+}
+.v-card .v-divider:first-of-type {
+  margin-top: 16px;
+}
+.v-list__tile__sub-title {
+  text-align: right;
 }
 </style>
