@@ -307,15 +307,6 @@ export default {
   padding-left: 4px;
   margin-right: 8px;
 }
-.device-wrapper .container {
-  padding: 8px !important;
-}
-.device-wrapper {
-  padding-bottom: 8px;
-}
-.v-card {
-  border: solid 1px rgba(0, 0, 0, 0.12);
-}
 .v-dialog .v-card, .v-dialog--persistent .v-card, .v-dialog--active .v-card {
   background-color: #893eff;
   border-radius: 5px;

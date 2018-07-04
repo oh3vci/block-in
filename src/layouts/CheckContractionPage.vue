@@ -52,11 +52,18 @@
             <v-layout row wrap class="device-wrapper">
               <v-flex>
                 <v-card>
-                  <v-container fluid fill-height pa-2>
-                    <v-layout fill-height>
-                      <v-flex xs12 align-end flexbox>
+                  <v-container fluid grid-list-lg>
+                    <v-layout>
+                      <v-flex xs12 flexbox>
                         <span>Air Conditioner</span>
                         <div class="price">$3.0</div>
+                      </v-flex>
+                    </v-layout>
+                    <v-layout>
+                      <v-flex xs12 flexbox>
+                        <v-btn block color="tertiary" dark>
+                          <v-icon>share</v-icon>
+                        </v-btn>
                       </v-flex>
                     </v-layout>
                   </v-container>
@@ -65,11 +72,18 @@
 
               <v-flex>
                 <v-card>
-                  <v-container fluid fill-height pa-2>
+                  <v-container fluid grid-list-lg>
                     <v-layout>
-                      <v-flex xs12 align-end flexbox>
+                      <v-flex xs12 flexbox>
                         <span>Door Lock</span>
                         <div class="price">$3.0</div>
+                      </v-flex>
+                    </v-layout>
+                    <v-layout>
+                      <v-flex xs12 flexbox>
+                        <v-btn block color="tertiary" dark>
+                          <v-icon>share</v-icon>
+                        </v-btn>
                       </v-flex>
                     </v-layout>
                   </v-container>

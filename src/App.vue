@@ -77,4 +77,10 @@ export default {
   padding-left: 16px;
   font-size: 20px;
 }
+.device-wrapper {
+  padding-bottom: 8px;
+}
+.v-card {
+  border: solid 1px rgba(0, 0, 0, 0.12);
+}
 </style>
