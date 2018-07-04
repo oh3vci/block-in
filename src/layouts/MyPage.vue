@@ -32,16 +32,16 @@
                   <div class="text-primary section--head">Balance</div>
                   <div class="balance-amount">{{ totalPrice }} ETH</div>
                 </v-flex>
-                <v-flex class="charge-button" xs4>
+                <!-- <v-flex class="charge-button" xs4>
                   <v-btn color="primary">CHARGE</v-btn>
-                </v-flex>
+                </v-flex> -->
               </v-layout>
             </v-container>
           </v-card>
         </v-flex>
 
         <v-flex v-if="isCheckedin" xs12>
-          <div class="section--head">Usage</div>
+          <div class="section--head">Check In List</div>
         </v-flex>
 
         <v-flex v-if="isCheckedin" xs12>
@@ -56,15 +56,15 @@
                     >
                   </v-avatar>
                   <div class="describe">
-                    <div class="headline">Jennie Kim</div>
-                    <div>18.06.24 ~ 18.06.26</div>
+                    <div class="headline">{{ owenrName }}</div>
+                    <div>phone : {{ ownerPhone }} </div>
                   </div>
                 </v-flex>
                 <v-flex class="charge-button" xs4>
 
                   <v-layout row justify-center>
                     <v-dialog v-model="dialog" persistent max-width="290">
-                      <v-btn slot="activator" color="primary">LEAVE</v-btn>
+                      <v-btn slot="activator" color="primary">Check Out</v-btn>
                       <v-card>
                         <v-card-title class="headline">Contract</v-card-title>
                         <v-list-tile>
@@ -73,7 +73,7 @@
                           </v-list-tile-avatar>
                           <v-list-tile-content>
                             <v-list-tile-title>Air Conditioner</v-list-tile-title>
-                            <v-list-tile-sub-title>$2.0</v-list-tile-sub-title>
+                            <v-list-tile-sub-title>5,000 Wei</v-list-tile-sub-title>
                           </v-list-tile-content>
                         </v-list-tile>
                         <v-list-tile>
@@ -81,25 +81,25 @@
                             <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y">
                           </v-list-tile-avatar>
                           <v-list-tile-content>
-                            <v-list-tile-title>Air Conditioner</v-list-tile-title>
-                            <v-list-tile-sub-title>$2.0</v-list-tile-sub-title>
+                            <v-list-tile-title>Computer</v-list-tile-title>
+                            <v-list-tile-sub-title>10,000 Wei</v-list-tile-sub-title>
                           </v-list-tile-content>
                         </v-list-tile>
                         <v-divider></v-divider>
                         <v-list-tile>
                           <v-list-tile-content>
-                            <v-list-tile-sub-title>Total Usage: $7.5</v-list-tile-sub-title>
+                            <v-list-tile-sub-title>Total Usage: 15,000Wei</v-list-tile-sub-title>
                           </v-list-tile-content>
                         </v-list-tile>
                         <v-list-tile>
                           <v-list-tile-content>
-                            <v-list-tile-sub-title>Refund: $13.5</v-list-tile-sub-title>
+                            <v-list-tile-sub-title>Refund: 2.91 Eth</v-list-tile-sub-title>
                           </v-list-tile-content>
                         </v-list-tile>
                         <v-divider></v-divider>
                         <v-card-actions>
                           <v-spacer></v-spacer>
-                          <v-btn flat @click.native="dialog = false">OK</v-btn>
+                          <v-btn flat @click="checkOut()">OK</v-btn>
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
@@ -108,7 +108,7 @@
                 </v-flex>
               </v-layout>
               <v-layout>
-                <div class="text-primary section--deposit">Deposit : $20.00</div>
+                <div class="text-primary section--deposit">Deposit : {{ homeDeposit }} Eth</div>
               </v-layout>
             </v-container>
 
@@ -138,7 +138,7 @@
                   <v-container fluid grid-list-lg>
                     <v-layout>
                       <v-flex xs12 flexbox>
-                        <span>Door Lock</span>
+                        <span>Computer</span>
                         <div class="price">$3.0</div>
                       </v-flex>
                     </v-layout>
@@ -154,39 +154,6 @@
               </v-flex>
             </v-layout>
             
-          </v-card>
-        </v-flex>
-
-        <v-flex xs12>
-          <div class="section--head">Check-In List</div>
-        </v-flex>
-
-        <v-flex xs12 v-if="isRent === true">
-          <v-card color="white" class="dark--text">
-            <v-container fluid grid-list-lg>
-              <v-layout>
-                <v-flex xs10 column>
-                  <v-avatar>
-                    <img
-                      src="https://s3.amazonaws.com/vuetify-docs/images/john.jpg"
-                      alt="John"
-                    >
-                  </v-avatar>
-                  <div class="describe">
-                    <div class="headline">{{ ownerName }}'s</div>
-                    <div>Phone : {{ ownerPhone }}</div>
-                  </div>
-                </v-flex>
-                <v-flex class="charge-button" xs4>
-                  <v-btn color="primary" @click="checkOut()">Check Out</v-btn>
-                </v-flex>
-              </v-layout>
-              <v-layout>
-                <v-flex xs12 class="total-price">
-                  <div> Deposit : {{ homeDeposit }} Eth</div>
-                </v-flex>
-              </v-layout>
-            </v-container>
           </v-card>
         </v-flex>
 
@@ -272,6 +239,7 @@ export default {
         console.log(res);
         alert('Check Out!');
         this.isRent = false;
+        this.totalPrice += 2.91;
       })
       .catch((error) => {
         alert(error);
@@ -283,7 +251,7 @@ export default {
     return {
       name: '',
       deposit: 0,
-      totalPrice: 10,
+      totalPrice: 10.772,
       phone: '',
       isCheckedin: true,
       dialog: false,

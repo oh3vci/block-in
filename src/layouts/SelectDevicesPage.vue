@@ -85,7 +85,7 @@
           top
           right
           fab
-          @click="goNextPage()"
+          @click="checkIn()"
         >
           <v-icon>keyboard_arrow_right</v-icon>
         </v-btn>
