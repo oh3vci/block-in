@@ -34,88 +34,26 @@
           </v-flex>
         </v-layout>
       </div>
-      <v-divider></v-divider>
       <div class="list-title">
-        <v-flex xs12 column>
-          <div class="text-primary section--head">Deposit</div>
-          <div class="describe">
-            <div>{{ deposit }} ETH</div>
-          </div>
-        </v-flex>
+        <v-layout>
+          <v-flex xs12 class="total-price">
+                  <div> Deposit : {{ deposit }} Eth</div>
+                  <div>(1 Eth = 1000000000000000000 Wei)</div>
+          </v-flex>
+        </v-layout>
       </div>
-      <v-divider></v-divider>
       <div class="list-title">
         <v-flex xs12 column>
           <div class="text-primary section--head">IoT Devices</div>
-          <v-layout row wrap class="device-wrapper">
-            <v-flex>
-              <v-card>
-                <v-container fluid grid-list-lg>
-                  <v-layout>
-                    <v-flex xs12 flexbox>
-                      <span>Air Conditioner</span>
-                      <div class="price">$3.0</div>
-                    </v-flex>
-                  </v-layout>
-                  <v-layout>
-                    <v-flex xs12 flexbox>
-                      <v-btn block color="tertiary" dark>
-                        <v-icon>share</v-icon>
-                      </v-btn>
-                    </v-flex>
-                  </v-layout>
-                </v-container>
-              </v-card>
-            </v-flex>
 
-            <v-flex>
+          <v-layout row wrap class="device-wrapper" v-for="(device, index) in devices" :key="index" v-if="index % 2 === 0 && index < devices.length - 1">
+            <v-flex v-for="(device, idx) in devices.slice(index, index + 2)" :key="idx">
               <v-card>
                 <v-container fluid grid-list-lg>
                   <v-layout>
                     <v-flex xs12 flexbox>
-                      <span>Door Lock</span>
-                      <div class="price">$3.0</div>
-                    </v-flex>
-                  </v-layout>
-                  <v-layout>
-                    <v-flex xs12 flexbox>
-                      <v-btn block color="tertiary" dark>
-                        <v-icon>share</v-icon>
-                      </v-btn>
-                    </v-flex>
-                  </v-layout>
-                </v-container>
-              </v-card>
-            </v-flex>
-          </v-layout>
-          <v-layout row wrap class="device-wrapper">
-            <v-flex>
-              <v-card>
-                <v-container fluid grid-list-lg>
-                  <v-layout>
-                    <v-flex xs12 flexbox>
-                      <span>Air Conditioner</span>
-                      <div class="price">$3.0</div>
-                    </v-flex>
-                  </v-layout>
-                  <v-layout>
-                    <v-flex xs12 flexbox>
-                      <v-btn block color="tertiary" dark>
-                        <v-icon>share</v-icon>
-                      </v-btn>
-                    </v-flex>
-                  </v-layout>
-                </v-container>
-              </v-card>
-            </v-flex>
-
-            <v-flex>
-              <v-card>
-                <v-container fluid grid-list-lg>
-                  <v-layout>
-                    <v-flex xs12 flexbox>
-                      <span>Door Lock</span>
-                      <div class="price">$3.0</div>
+                      <span>{{device._name}}</span>
+                      <div class="price">{{device._fee}} Wei / sec</div>
                     </v-flex>
                   </v-layout>
                   <v-layout>
@@ -158,7 +96,7 @@
 
 
 <script>
-import { callMethod } from '../util/api';
+import { callMethod, sendMethod } from '../util/api';
 import { USER_ACCOUNT } from '../util/constant';
 
 export default {
@@ -175,26 +113,26 @@ export default {
   },
   methods: {
     goNextPage() {
-      this.$router.push({ name: 'CheckContractionPage' });
+      this.$router.push({ name: 'ConfirmPage' });
     },
     goMain() {
       this.$router.push({ name: 'MyPage' });
     },
-    getOwner() {
-      const homeIndex = this.$route.query.homeIndex || 0;
+    async getOwner() {
+      const homeIndex = this.$route.query.homeIndex || 1;
 
-      callMethod({
+      await callMethod({
         method: 'getHome',
         from: this.account,
         param: [
           homeIndex,
         ]
-      }).then((res) => {
+      }).then(async (res) => {
           const home = res.data.ret;
           console.log('home : ',home);
           this.deposit = home._deposit;
 
-          callMethod({
+          await callMethod({
             method: 'getCustomer',
             from: this.account,
             param: [
@@ -208,10 +146,10 @@ export default {
           });
       });
     },
-    getDevices() {
-      const homeIndex = this.$route.query.homeIndex || 0;
+    async getDevices() {
+      const homeIndex = this.$route.query.homeIndex || 1;
 
-      callMethod({
+      await callMethod({
         method: 'getIoTnet',
         from: this.account,
         param: [
@@ -223,8 +161,8 @@ export default {
 
         this.numDevices = ioTnet._numDevice;
 
-        ioTnet._permittedDevice.forEach((addressDevice) => {
-          callMethod({
+        ioTnet._permittedDevice.forEach(async (addressDevice) => {
+          await callMethod({
             method: 'getDevice',
             from: this.account,
             param: [
@@ -233,12 +171,29 @@ export default {
           }).then((res) => {
             const device = res.data.ret;
             console.log('device : ', device);
-            devices.push(device);
+            this.devices.push(device);
           });
         });
       });
-      
+    },
+    async checkIn() {
+      const homeIndex = this.$route.query.homeIndex || 1;
 
+      await sendMethod({
+        method: 'checkin',
+        from: this.account,
+        gas: 3000000,
+        param: [
+          homeIndex
+        ]
+      }).then((res) => {
+        console.log(res);
+        this.goNextPage();
+      })
+      .catch((error) => {
+        alert(error);
+        this.goMain();
+      });
     }
   },
   mounted() {
@@ -250,6 +205,9 @@ export default {
 
 
 <style scoped>
+.total-price > div {
+  color: #6200ee;
+}
 .application .theme--light.v-list, .theme--light .v-list {
   background-color: #fafafa;
 }

@@ -11,7 +11,7 @@
       <v-toolbar-title>BLOCK - IN</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn icon @click="goNextPage()">
+        <v-btn icon @click="goHomePage()">
           <v-icon>close</v-icon>
         </v-btn>
       </v-toolbar-items>
@@ -40,8 +40,9 @@
                     >
                   </v-avatar>
                   <div class="describe">
-                    <div class="headline">Jennie Kim</div>
-                    <div>18.06.24 ~ 18.06.26</div>
+                    <div class="headline">Welcome to {{ ownerName }}'s house</div>
+                    <!-- <div class="headline">Now you can control devices!</div> -->
+                    <div>phone : {{ ownerPhone }}</div>
                   </div>
                 </v-flex>
                 <v-flex class="charge-button" xs2>
@@ -50,54 +51,11 @@
               </v-layout>
               <v-layout>
                 <v-flex xs12 class="total-price">
-                  <div>Deposit : $20.00</div>
-                  <div>($20 = 134 DAC)</div>
+                  <div>Deposit : {{ deposit }} ETH</div>
+                  <div>(1 Eth = 1000000000000000000 Wei)</div>
                 </v-flex>
               </v-layout>
             </v-container>
-
-            <v-layout row wrap class="device-wrapper">
-              <v-flex>
-                <v-card>
-                  <v-container fluid grid-list-lg>
-                    <v-layout>
-                      <v-flex xs12 flexbox>
-                        <span>Air Conditioner</span>
-                        <div class="price">$3.0</div>
-                      </v-flex>
-                    </v-layout>
-                    <v-layout>
-                      <v-flex xs12 flexbox>
-                        <v-btn block color="tertiary" dark>
-                          <v-icon>share</v-icon>
-                        </v-btn>
-                      </v-flex>
-                    </v-layout>
-                  </v-container>
-                </v-card>
-              </v-flex>
-
-              <v-flex>
-                <v-card>
-                  <v-container fluid grid-list-lg>
-                    <v-layout>
-                      <v-flex xs12 flexbox>
-                        <span>Door Lock</span>
-                        <div class="price">$3.0</div>
-                      </v-flex>
-                    </v-layout>
-                    <v-layout>
-                      <v-flex xs12 flexbox>
-                        <v-btn block color="tertiary" dark>
-                          <v-icon>share</v-icon>
-                        </v-btn>
-                      </v-flex>
-                    </v-layout>
-                  </v-container>
-                </v-card>
-              </v-flex>
-            </v-layout>
-            
           </v-card>
         </v-flex>
       </v-layout>
@@ -107,12 +65,54 @@
 
 
 <script>
+import { callMethod, sendMethod } from '../util/api';
+import { USER_ACCOUNT } from '../util/constant';
+
 export default {
   name: 'ConfirmPage',
+  data() {
+    return {
+      account: USER_ACCOUNT,
+      ownerName: '',
+      ownerPhone: '',
+      deposit: 0
+    };
+  },
   methods: {
-    goNextPage() {
+    goHomePage() {
       this.$router.push({ name: 'MyPage' });
     },
+    async getOwner() {
+      const homeIndex = this.$route.query.homeIndex || 1;
+
+      await callMethod({
+        method: 'getHome',
+        from: this.account,
+        param: [
+          homeIndex,
+        ]
+      }).then(async (res) => {
+          const home = res.data.ret;
+          console.log('home : ',home);
+          this.deposit = home._deposit;
+
+          await callMethod({
+            method: 'getCustomer',
+            from: this.account,
+            param: [
+              home._homeOwner,
+            ]
+          }).then((res) => {
+            const owner = res.data.ret;
+            console.log('owner : ',owner);
+            this.ownerName = owner._name;
+            this.ownerPhone = owner._phone;
+          });
+      });
+    }
+  },
+  mounted() {
+    this.getOwner();
   },
 };
 </script>

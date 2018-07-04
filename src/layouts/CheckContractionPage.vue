@@ -141,7 +141,40 @@ export default {
     goMain() {
       this.$router.push({ name: 'MyPage' });
     },
+    async getDevices() {
+      const homeIndex = this.$route.query.homeIndex || 1;
+
+      await callMethod({
+        method: 'getIoTnet',
+        from: this.account,
+        param: [
+          homeIndex,
+        ],
+      }).then((res) => {
+        const ioTnet = res.data.ret;
+        console.log('ioTnet',ioTnet);
+
+        this.numDevices = ioTnet._numDevice;
+
+        ioTnet._permittedDevice.forEach(async (addressDevice) => {
+          await callMethod({
+            method: 'getDevice',
+            from: this.account,
+            param: [
+              addressDevice,
+            ],
+          }).then((res) => {
+            const device = res.data.ret;
+            console.log('device : ', device);
+            this.devices.push(device);
+          });
+        });
+      });
+    },
   },
+  mounted () {
+    this.$isServergetDevices();
+  }
 };
 </script>
 

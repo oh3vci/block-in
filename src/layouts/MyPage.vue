@@ -30,7 +30,7 @@
               <v-layout>
                 <v-flex xs8>
                   <div class="text-primary section--head">Balance</div>
-                  <div class="balance-amount">${{ totalPrice }}</div>
+                  <div class="balance-amount">{{ totalPrice }} ETH</div>
                 </v-flex>
                 <v-flex class="charge-button" xs4>
                   <v-btn color="primary">CHARGE</v-btn>
@@ -158,10 +158,10 @@
         </v-flex>
 
         <v-flex xs12>
-          <div class="section--head">Previous Contracts</div>
+          <div class="section--head">Check-In List</div>
         </v-flex>
 
-        <v-flex xs12>
+        <v-flex xs12 v-if="isRent === true">
           <v-card color="white" class="dark--text">
             <v-container fluid grid-list-lg>
               <v-layout>
@@ -173,46 +173,17 @@
                     >
                   </v-avatar>
                   <div class="describe">
-                    <div class="headline">Jennie Kim</div>
-                    <div>18.06.24 ~ 18.06.26</div>
+                    <div class="headline">{{ ownerName }}'s</div>
+                    <div>Phone : {{ ownerPhone }}</div>
                   </div>
                 </v-flex>
-                <v-flex class="charge-button" xs2>
-                  <v-icon medium>share</v-icon>
+                <v-flex class="charge-button" xs4>
+                  <v-btn color="primary" @click="checkOut()">Check Out</v-btn>
                 </v-flex>
               </v-layout>
               <v-layout>
                 <v-flex xs12 class="total-price">
-                  <div>Total: $10.00</div>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card>
-        </v-flex>
-
-        <v-flex xs12>
-          <v-card color="white" class="dark--text">
-            <v-container fluid grid-list-lg>
-              <v-layout>
-                <v-flex xs10 column>
-                  <v-avatar>
-                    <img
-                      src="https://s3.amazonaws.com/vuetify-docs/images/john.jpg"
-                      alt="John"
-                    >
-                  </v-avatar>
-                  <div class="describe">
-                    <div class="headline">Jennie Kim</div>
-                    <div>18.06.24 ~ 18.06.26</div>
-                  </div>
-                </v-flex>
-                <v-flex class="charge-button" xs2>
-                  <v-icon medium>share</v-icon>
-                </v-flex>
-              </v-layout>
-              <v-layout>
-                <v-flex xs12 class="total-price">
-                  <div>Total: $10.00</div>
+                  <div> Deposit : {{ homeDeposit }} Eth</div>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -246,7 +217,7 @@
 
 
 <script>
-import { callMethod } from '../util/api';
+import { callMethod, sendMethod } from '../util/api';
 import { USER_ACCOUNT } from '../util/constant';
 
 export default {
@@ -255,15 +226,71 @@ export default {
     goNextPage() {
       this.$router.push({ name: 'JoinContractPage' });
     },
+    goAgain() {
+      this.$route.push({name: 'MyPage'});
+    },
+    async getOwner() {
+      const homeIndex = this.$route.query.homeIndex || 1;
+
+      await callMethod({
+        method: 'getHome',
+        from: USER_ACCOUNT,
+        param: [
+          homeIndex,
+        ]
+      }).then(async (res) => {
+          const home = res.data.ret;
+          console.log('home : ',home);
+          this.homeDeposit = home._deposit;
+          this.isRent = home._isOnMarket;
+
+          await callMethod({
+            method: 'getCustomer',
+            from: USER_ACCOUNT,
+            param: [
+              home._homeOwner,
+            ]
+          }).then((res) => {
+            const owner = res.data.ret;
+            console.log('owner : ',owner);
+            this.ownerName = owner._name;
+            this.ownerPhone = owner._phone;
+          });
+      });
+    },
+    checkOut() {
+      const homeIndex = this.$route.query.homeIndex || 1;
+
+      sendMethod({
+        method: 'checkout',
+        from: USER_ACCOUNT,
+        gas: 4000000,
+        param: [
+          homeIndex
+        ]
+      }).then((res) => {
+        console.log(res);
+        alert('Check Out!');
+        this.isRent = false;
+      })
+      .catch((error) => {
+        alert(error);
+        this.goMain();
+      });
+    }
   },
   data() {
     return {
       name: '',
       deposit: 0,
-      totalPrice: 0,
+      totalPrice: 10,
       phone: '',
       isCheckedin: true,
       dialog: false,
+      owenrName: '',
+      ownerPhone: '',
+      homeDeposit: 0,
+      isRent : true,
     };
   },
   mounted() {
@@ -279,9 +306,10 @@ export default {
       this.name = data._name;
       this.deposit = data._deposit;
       this.phone = data._phone;
-      this.totalPrice = data._totalPrice;
+      // this.totalPrice = data._totalPrice;
       this.isCheckedin = data._isCheckedin;
     });
+    this.getOwner();
   },
 };
 </script>
