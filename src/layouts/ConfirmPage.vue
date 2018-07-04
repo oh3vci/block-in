@@ -11,6 +11,12 @@
       <v-toolbar-title>BLOCK - IN</v-toolbar-title>
     </v-toolbar>
 
+    <div>
+      <v-alert :value="true" color="emphasis" type="success">
+        New Contraction Confirmed
+      </v-alert>
+    </div>
+
     <v-container fluid grid-list-lg>
       <v-layout
         row
@@ -38,7 +44,8 @@
               </v-layout>
               <v-layout>
                 <v-flex xs12 class="total-price">
-                  <div>Total: $10.00</div>
+                  <div>Deposit : $20.00</div>
+                  <div>($20 = 134 DAC)</div>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -75,38 +82,6 @@
         </v-flex>
       </v-layout>
     </v-container>
-
-    <v-footer
-      color="primary"
-      app
-      fixed
-    >
-      <v-layout
-        justify-center
-        row
-        wrap
-      >
-        <v-flex
-          xs12
-          white--text
-        >
-          <strong>Make a Contraction</strong>
-        </v-flex>
-      </v-layout>
-      <v-fab-transition>
-        <v-btn
-          color="emphasis"
-          dark
-          absolute
-          top
-          right
-          fab
-          @click="goNextPage()"
-        >
-          <v-icon>check</v-icon>
-        </v-btn>
-      </v-fab-transition>
-    </v-footer>
   </v-app>
 </template>
 
@@ -124,7 +99,7 @@ export default {
 
 
 <style scoped>
-.v-toolbar, .v-footer {
+.v-toolbar {
   height: 8.75% !important;
 }
 .describe {
@@ -165,5 +140,15 @@ export default {
 .white--text strong {
   padding-left: 16px;
   font-size: 20px;
+}
+.v-alert {
+  margin: 16px;
+  font-size: 24px;
+}
+</style>
+
+<style>
+.v-alert .v-alert__icon.v-icon {
+  color: #fafafa !important;
 }
 </style>
