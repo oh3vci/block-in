@@ -204,6 +204,7 @@
 
 <script>
 import { callMethod } from '../util/api';
+import { USER_ACCOUNT } from '../util/constant';
 
 export default {
   name: 'MyPage',
@@ -224,8 +225,8 @@ export default {
   mounted() {
     const payloadCallMethod = {
       method: 'getCustomer',
-      from: '0xeB6D5b1bD8335bFAa4d8A6BaA89BC8504b7BdD04',
-      param: ['0xeB6D5b1bD8335bFAa4d8A6BaA89BC8504b7BdD04'],
+      from: USER_ACCOUNT,
+      param: [USER_ACCOUNT],
     };
     callMethod(payloadCallMethod).then((res) => {
       const data = res.data.ret;

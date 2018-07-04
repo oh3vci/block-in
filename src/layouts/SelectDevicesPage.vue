@@ -135,12 +135,13 @@
 
 <script>
 import { callMethod } from '../util/api';
+import { USER_ACCOUNT } from '../util/constant';
 
 export default {
   name: 'SelectDevicesPage',
   data() {
     return {
-      account: '0xeB6D5b1bD8335bFAa4d8A6BaA89BC8504b7BdD04',
+      account: USER_ACCOUNT,
       ownerName: '',
       ownerPhone: '',
       deposit: 0,
