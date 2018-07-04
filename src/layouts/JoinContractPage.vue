@@ -5,7 +5,7 @@
       dark
       flat
     >
-      <v-btn icon>
+      <v-btn icon @click="goPreviousPage()">
         <v-icon>close</v-icon>
       </v-btn>
     </v-toolbar>
@@ -43,7 +43,7 @@
             <div class="input-hint">Type your link</div>
           </v-flex>
           <v-flex xs4>
-            <v-btn class="enter-button" color="primary">ENTER</v-btn>
+            <v-btn class="enter-button" color="primary" @click="goNextPage()">ENTER</v-btn>
           </v-flex>
         </v-layout>
       </v-container>
@@ -55,6 +55,14 @@
 <script>
 export default {
   name: 'JoinContractPage',
+  methods: {
+    goPreviousPage() {
+      this.$router.push({ name: 'MyPage' });
+    },
+    goNextPage() {
+      this.$router.push({ name: 'SelectDevicesPage' });
+    },
+  },
 };
 </script>
 
