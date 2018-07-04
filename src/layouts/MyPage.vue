@@ -209,7 +209,7 @@ export default {
           const home = res.data.ret;
           console.log('home : ',home);
           this.homeDeposit = home._deposit;
-          this.isRent = home._isOnMarket;
+          this.isCheckedin = home._isOnMarket;
 
           await callMethod({
             method: 'getCustomer',
@@ -238,7 +238,7 @@ export default {
       }).then((res) => {
         console.log(res);
         alert('Check Out!');
-        this.isRent = false;
+        this.isCheckedin = false;
         this.totalPrice += 2.91;
       })
       .catch((error) => {
@@ -275,7 +275,7 @@ export default {
       this.deposit = data._deposit;
       this.phone = data._phone;
       // this.totalPrice = data._totalPrice;
-      this.isCheckedin = data._isCheckedin;
+      // this.isCheckedin = data._isCheckedin;
     });
     this.getOwner();
   },
