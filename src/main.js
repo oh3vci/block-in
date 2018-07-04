@@ -12,6 +12,7 @@ Vue.use(Vuetify, {
   theme: {
     primary: '#6200ee',
     secondary: '#3b00dd',
+    tertiary: '#c38fff',
     emphasis: '#03dac4',
   },
 });
