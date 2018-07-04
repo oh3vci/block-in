@@ -117,6 +117,7 @@
           top
           right
           fab
+          @click="goNextPage()"
         >
           <v-icon>add</v-icon>
         </v-btn>
@@ -129,9 +130,11 @@
 <script>
 export default {
   name: 'MyPage',
-  data: () => ({
-    drawer: null,
-  }),
+  methods: {
+    goNextPage() {
+      this.$router.push({ name: 'JoinContractPage' });
+    },
+  },
 };
 </script>
 
