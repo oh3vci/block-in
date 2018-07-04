@@ -56,7 +56,7 @@
                     >
                   </v-avatar>
                   <div class="describe">
-                    <div class="headline">{{ owenrName }}</div>
+                    <div class="headline">{{ ownerName }}'s</div>
                     <div>phone : {{ ownerPhone }} </div>
                   </div>
                 </v-flex>
@@ -255,7 +255,7 @@ export default {
       phone: '',
       isCheckedin: true,
       dialog: false,
-      owenrName: '',
+      ownerName: '',
       ownerPhone: '',
       homeDeposit: 0,
       isRent : true,
