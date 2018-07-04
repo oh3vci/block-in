@@ -128,12 +128,35 @@
 
 
 <script>
+import { getAccounts, callMethod, sendMethod } from '../util/api';
+
 export default {
   name: 'MyPage',
   methods: {
     goNextPage() {
       this.$router.push({ name: 'JoinContractPage' });
     },
+  },
+  mounted() {
+    getAccounts();
+
+    
+    const payloadCallMethod = {
+      method: 'contractOwner',
+      from: '0x98bcD3D00454BEeCAf45Cc204F68962F7C153Cfd',
+      param: [],
+    };
+    callMethod(payloadCallMethod).then(console.log);
+
+    const payloadSendMethod = {
+      method: 'registHome',
+      from: '0x98bcD3D00454BEeCAf45Cc204F68962F7C153Cfd',
+      gas: 100000,
+      param: [
+        '0x98bcD3D00454BEeCAf45Cc204F68962F7C153Cfd',
+      ],
+    };
+    sendMethod(payloadSendMethod).then(console.log);
   },
 };
 </script>
