@@ -11,7 +11,7 @@
       <v-toolbar-title>BLOCK - IN</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn icon>
+        <v-btn icon @click="goMain()">
           <v-icon>close</v-icon>
         </v-btn>
       </v-toolbar-items>
@@ -141,26 +141,17 @@ export default {
     goNextPage() {
       this.$router.push({ name: 'CheckContractionPage' });
     },
+    goMain() {
+      this.$router.push({ name: 'MyPage' });
+    },
   },
 };
 </script>
 
 
 <style scoped>
-.v-toolbar, .v-footer {
-  height: 8.75% !important;
-}
-.v-toolbar__title:not(:first-child) {
-  margin-left: 0;
-}
-.v-btn--floating {
-  border: 5px solid #fbfbfb !important;
-  box-shadow: none;
-  width: 64px;
-  height: 64px;
-}
-.v-btn--floating .v-btn__content i {
-  margin-top: 24px;
+.application {
+  background-color: #ffffff !important;
 }
 .section--head {
   font-weight: bold;
@@ -170,23 +161,8 @@ export default {
   display: inline-block;
   margin-left: 8px;
 }
-.v-toolbar__content {
-  height: 100% !important;
-}
 .text-primary {
   color: #6200ee;
-}
-.v-avatar {
-  vertical-align: top !important;
-}
-.v-btn--floating {
-  border: 5px solid #fbfbfb !important;
-  box-shadow: none;
-  width: 64px;
-  height: 64px;
-}
-.v-btn--floating .v-btn__content i {
-  margin-top: 24px;
 }
 .list-title > .flex {
   padding: 16px !important;

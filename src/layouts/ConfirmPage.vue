@@ -105,9 +105,6 @@ export default {
 
 
 <style scoped>
-.v-toolbar {
-  height: 8.75% !important;
-}
 .describe {
   display: inline-block;
   margin-left: 8px;
@@ -134,15 +131,6 @@ export default {
   font-weight: bold;
   font-size: 24px;
 }
-.v-btn--floating {
-  border: 5px solid #fbfbfb !important;
-  box-shadow: none;
-  width: 64px;
-  height: 64px;
-}
-.v-btn--floating .v-btn__content i {
-  margin-top: 24px;
-}
 .white--text strong {
   padding-left: 16px;
   font-size: 20px;
@@ -150,11 +138,5 @@ export default {
 .v-alert {
   margin: 16px;
   font-size: 24px;
-}
-</style>
-
-<style>
-.v-alert .v-alert__icon.v-icon {
-  color: #fafafa !important;
 }
 </style>

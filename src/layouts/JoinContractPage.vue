@@ -5,7 +5,7 @@
       dark
       flat
     >
-      <v-btn icon @click="goPreviousPage()">
+      <v-btn icon @click="goMain()">
         <v-icon>close</v-icon>
       </v-btn>
     </v-toolbar>
@@ -56,7 +56,7 @@
 export default {
   name: 'JoinContractPage',
   methods: {
-    goPreviousPage() {
+    goMain() {
       this.$router.push({ name: 'MyPage' });
     },
     goNextPage() {
@@ -101,11 +101,5 @@ export default {
 }
 .enter-button {
   margin-left: 26px !important;
-}
-</style>
-
-<style>
-.v-input__control > .v-text-field__details {
-  display: none !important;
 }
 </style>

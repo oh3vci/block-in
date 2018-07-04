@@ -32,7 +32,7 @@
                   <div class="text-primary section--head">Balance</div>
                   <div class="balance-amount">$70.50</div>
                 </v-flex>
-                <v-flex xs4>
+                <v-flex class="charge-button" xs4>
                   <v-btn color="primary">CHARGE</v-btn>
                 </v-flex>
               </v-layout>
@@ -175,14 +175,10 @@ export default {
 .customer {
   font-weight: bold;
 }
-</style>
-
-<style>
-.v-toolbar, .v-footer {
-  height: 8.75% !important;
-}
-.v-toolbar__title:not(:first-child) {
-  margin-left: 0;
+.charge-button {
+  display: flex;
+  justify-content : flex-end !important;
+  -webkit-justify-content: flex-end !important;
 }
 .section--head {
   font-weight: bold;
@@ -192,22 +188,10 @@ export default {
   display: inline-block;
   margin-left: 8px;
 }
-.v-toolbar__content {
-  height: 100% !important;
-}
 .text-primary {
   color: #6200ee;
 }
 .v-avatar {
   vertical-align: top !important;
-}
-.v-btn--floating {
-  border: 5px solid #fbfbfb !important;
-  box-shadow: none;
-  width: 64px;
-  height: 64px;
-}
-.v-btn--floating .v-btn__content i {
-  margin-top: 24px;
 }
 </style>
