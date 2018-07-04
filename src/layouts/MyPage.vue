@@ -23,7 +23,7 @@
                 <v-flex xs12 column>
                   <div>
                     <div class="headline customer">{{ name }}</div>
-                    <div>user</div>
+                    <div>{{ phone }}</div>
                   </div>
                 </v-flex>
               </v-layout>
@@ -149,12 +149,13 @@ export default {
   mounted() {
     const payloadCallMethod = {
       method: 'getCustomer',
-      from: '0xd1a81cF0A6EBFbd8CE45e95f73f553bD2A34dCeE',
-      param: ['0xd1a81cF0A6EBFbd8CE45e95f73f553bD2A34dCeE'],
+      from: '0xeB6D5b1bD8335bFAa4d8A6BaA89BC8504b7BdD04',
+      param: ['0xeB6D5b1bD8335bFAa4d8A6BaA89BC8504b7BdD04'],
     };
     callMethod(payloadCallMethod).then((res) => {
       const data = res.data.ret;
 
+      console.log(data);
       this.name = data._name;
       this.deposit = data._deposit;
       this.phone = data._phone;

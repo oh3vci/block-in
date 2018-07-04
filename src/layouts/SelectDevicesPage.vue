@@ -28,8 +28,8 @@
           </v-flex>
           <v-flex xs10>
             <div class="describe">
-              <div class="headline">Jennie Kim</div>
-              <div>She was born in Anyang, a city in the province of Gyeong</div>
+              <div class="headline">{{ ownerName }}</div>
+              <div>{{ ownerPhone }}</div>
             </div>
           </v-flex>
         </v-layout>
@@ -37,9 +37,9 @@
       <v-divider></v-divider>
       <div class="list-title">
         <v-flex xs12 column>
-          <div class="text-primary section--head">Date</div>
+          <div class="text-primary section--head">Deposit</div>
           <div class="describe">
-            <div>18.06.24 10:00 AM ~ 18.06.26 15:00 PM</div>
+            <div>{{ deposit }}</div>
           </div>
         </v-flex>
       </div>
@@ -157,6 +157,7 @@ export default {
         ]
       }).then((res) => {
           const home = res.data.ret;
+          console.log('home : ',home);
           this.deposit = home._deposit;
 
           callMethod({
@@ -167,6 +168,7 @@ export default {
             ]
           }).then((res) => {
             const owner = res.data.ret;
+            console.log('owner : ',owner);
             this.ownerName = owner._name;
             this.ownerPhone = owner._phone;
           });
@@ -183,6 +185,7 @@ export default {
         ],
       }).then((res) => {
         const ioTnet = res.data.ret;
+        console.log('ioTnet',ioTnet);
 
         this.numDevices = ioTnet._numDevice;
 
@@ -195,6 +198,7 @@ export default {
             ],
           }).then((res) => {
             const device = res.data.ret;
+            console.log('device : ', device);
             devices.push(device);
           });
         });
@@ -205,7 +209,7 @@ export default {
   },
   data() {
     return {
-      account: '0xd1a81cF0A6EBFbd8CE45e95f73f553bD2A34dCeE',
+      account: '0xeB6D5b1bD8335bFAa4d8A6BaA89BC8504b7BdD04',
       ownerName: '',
       ownerPhone: '',
       deposit: 0,
@@ -214,11 +218,8 @@ export default {
     };
   },
   mounted() {
-    const payloadCallMethod = {
-      method: 'getCustomer',
-      from: this.account,
-      param: [this.account],
-    };
+    this.getOwner();
+    this.getDevices();
   }
 };
 </script>
