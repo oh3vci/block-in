@@ -135,6 +135,8 @@
 
 
 <script>
+import { callMethod } from '../util/api';
+
 export default {
   name: 'SelectDevicesPage',
   methods: {
@@ -144,7 +146,80 @@ export default {
     goMain() {
       this.$router.push({ name: 'MyPage' });
     },
+    getOwner() {
+      const homeIndex = this.$route.query.homeIndex || 1;
+
+      callMethod({
+        method: 'getHome',
+        from: this.account,
+        param: [
+          homeIndex,
+        ]
+      }).then((res) => {
+          const home = res.data.ret;
+          this.deposit = home._deposit;
+
+          callMethod({
+            method: 'getCustomer',
+            from: this.account,
+            param: [
+              home._homeOwner,
+            ]
+          }).then((res) => {
+            const owner = res.data.ret;
+            this.ownerName = owner._name;
+            this.ownerPhone = owner._phone;
+          });
+      });
+    },
+    getDevices() {
+      const homeIndex = this.$route.query.homeIndex || 1;
+
+      callMethod({
+        method: 'getIoTnet',
+        from: this.account,
+        param: [
+          homeIndex,
+        ],
+      }).then((res) => {
+        const ioTnet = res.data.ret;
+
+        this.numDevices = ioTnet._numDevice;
+
+        ioTnet._permittedDevice.forEach((addressDevice) => {
+          callMethod({
+            method: 'getDevice',
+            from: this.account,
+            param: [
+              addressDevice,
+            ],
+          }).then((res) => {
+            const device = res.data.ret;
+            devices.push(device);
+          });
+        });
+      });
+      
+
+    }
   },
+  data() {
+    return {
+      account: '0xd1a81cF0A6EBFbd8CE45e95f73f553bD2A34dCeE',
+      ownerName: '',
+      ownerPhone: '',
+      deposit: 0,
+      numDevices: 0,
+      devices: []     //_name, _type, _fee, _state
+    };
+  },
+  mounted() {
+    const payloadCallMethod = {
+      method: 'getCustomer',
+      from: this.account,
+      param: [this.account],
+    };
+  }
 };
 </script>
 

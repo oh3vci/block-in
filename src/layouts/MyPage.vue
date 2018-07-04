@@ -160,16 +160,6 @@ export default {
       this.phone = data._phone;
       this.totalPrice = data._totalPrice;
     });
-
-    // const payloadSendMethod = {
-    //   method: 'registHome',
-    //   from: '0xd1a81cF0A6EBFbd8CE45e95f73f553bD2A34dCeE',
-    //   gas: 100000,
-    //   param: [
-    //     '0xd1a81cF0A6EBFbd8CE45e95f73f553bD2A34dCeE',
-    //   ],
-    // };
-    // sendMethod(payloadSendMethod).then(console.log);
   },
 };
 </script>
