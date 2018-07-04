@@ -38,7 +38,7 @@
                     <div>18.06.24 ~ 18.06.26</div>
                   </div>
                 </v-flex>
-                <v-flex xs2>
+                <v-flex class="charge-button" xs2>
                   <v-icon medium>share</v-icon>
                 </v-flex>
               </v-layout>
