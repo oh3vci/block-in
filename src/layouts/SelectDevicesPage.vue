@@ -139,7 +139,7 @@ export default {
   name: 'SelectDevicesPage',
   methods: {
     goNextPage() {
-      this.$router.push({ name: 'ConfirmPage' });
+      this.$router.push({ name: 'CheckContractionPage' });
     },
   },
 };

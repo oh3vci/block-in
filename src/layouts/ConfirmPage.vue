@@ -42,6 +42,35 @@
                 </v-flex>
               </v-layout>
             </v-container>
+
+            <v-layout row wrap class="device-wrapper">
+              <v-flex>
+                <v-card>
+                  <v-container fluid fill-height pa-2>
+                    <v-layout fill-height>
+                      <v-flex xs12 align-end flexbox>
+                        <span>Air Conditioner</span>
+                        <div class="price">$3.0</div>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                </v-card>
+              </v-flex>
+
+              <v-flex>
+                <v-card>
+                  <v-container fluid fill-height pa-2>
+                    <v-layout>
+                      <v-flex xs12 align-end flexbox>
+                        <span>Door Lock</span>
+                        <div class="price">$3.0</div>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                </v-card>
+              </v-flex>
+            </v-layout>
+            
           </v-card>
         </v-flex>
       </v-layout>
@@ -52,6 +81,18 @@
       app
       fixed
     >
+      <v-layout
+        justify-center
+        row
+        wrap
+      >
+        <v-flex
+          xs12
+          white--text
+        >
+          <strong>Make a Contraction</strong>
+        </v-flex>
+      </v-layout>
       <v-fab-transition>
         <v-btn
           color="emphasis"
@@ -62,7 +103,7 @@
           fab
           @click="goNextPage()"
         >
-          <v-icon>add</v-icon>
+          <v-icon>check</v-icon>
         </v-btn>
       </v-fab-transition>
     </v-footer>
@@ -73,9 +114,56 @@
 <script>
 export default {
   name: 'ConfirmPage',
+  methods: {
+    goNextPage() {
+      this.$router.push({ name: 'CheckContractionPage' });
+    },
+  },
 };
 </script>
 
 
 <style scoped>
+.v-toolbar, .v-footer {
+  height: 8.75% !important;
+}
+.describe {
+  display: inline-block;
+  margin-left: 8px;
+}
+.total-price > div {
+  text-align: center;
+  vertical-align: middle;
+  font-size: 24px;
+  font-weight: bold;
+  color: #6200ee;
+}
+.device-wrapper {
+  margin-bottom: 20px;
+}
+.device-wrapper .flex:first-child {
+  padding-right: 4px;
+  margin-left: 8px;
+}
+.device-wrapper .flex:last-child {
+  padding-left: 4px;
+  margin-right: 8px;
+}
+.price {
+  font-weight: bold;
+  font-size: 24px;
+}
+.v-btn--floating {
+  border: 5px solid #fbfbfb !important;
+  box-shadow: none;
+  width: 64px;
+  height: 64px;
+}
+.v-btn--floating .v-btn__content i {
+  margin-top: 24px;
+}
+.white--text strong {
+  padding-left: 16px;
+  font-size: 20px;
+}
 </style>
