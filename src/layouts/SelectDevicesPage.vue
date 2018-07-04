@@ -39,7 +39,7 @@
         <v-flex xs12 column>
           <div class="text-primary section--head">Deposit</div>
           <div class="describe">
-            <div>{{ deposit }}</div>
+            <div>{{ deposit }} ETH</div>
           </div>
         </v-flex>
       </div>
@@ -157,7 +157,7 @@ export default {
       this.$router.push({ name: 'MyPage' });
     },
     getOwner() {
-      const homeIndex = this.$route.query.homeIndex || 1;
+      const homeIndex = this.$route.query.homeIndex || 0;
 
       callMethod({
         method: 'getHome',
@@ -185,7 +185,7 @@ export default {
       });
     },
     getDevices() {
-      const homeIndex = this.$route.query.homeIndex || 1;
+      const homeIndex = this.$route.query.homeIndex || 0;
 
       callMethod({
         method: 'getIoTnet',
