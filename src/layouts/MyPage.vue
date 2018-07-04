@@ -141,7 +141,6 @@ export default {
   mounted() {
     getAccounts();
 
-    
     const payloadCallMethod = {
       method: 'contractOwner',
       from: '0x98bcD3D00454BEeCAf45Cc204F68962F7C153Cfd',
