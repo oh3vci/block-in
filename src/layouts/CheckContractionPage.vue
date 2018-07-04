@@ -44,7 +44,7 @@
               </v-layout>
               <v-layout>
                 <v-flex xs12 class="total-price">
-                  <div>Total: $10.00</div>
+                  <div>Deposit: $10.00</div>
                 </v-flex>
               </v-layout>
             </v-container>
