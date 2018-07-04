@@ -152,7 +152,7 @@ export default {
   width: 64px;
   height: 64px;
 }
-.v-btn__content i {
+.v-btn--floating .v-btn__content i {
   margin-top: 24px;
 }
 .balance {
