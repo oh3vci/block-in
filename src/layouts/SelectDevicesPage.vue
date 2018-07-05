@@ -37,8 +37,8 @@
       <div class="list-title">
         <v-layout>
           <v-flex xs12 class="total-price">
-                  <div> Deposit : {{ deposit }} Eth</div>
-                  <div>(1 Eth = 1000000000000000000 Wei)</div>
+            <div>Deposit : {{ deposit }} Eth</div>
+            <div>(1 Eth = 1000000000000000000 Wei)</div>
           </v-flex>
         </v-layout>
       </div>
@@ -53,7 +53,7 @@
                   <v-layout>
                     <v-flex xs12 flexbox>
                       <span>{{device._name}}</span>
-                      <div class="price">{{device._fee}} Wei / sec</div>
+                      <div class="price">{{device._fee}} Wei</div>
                     </v-flex>
                   </v-layout>
                   <v-layout>
@@ -207,6 +207,9 @@ export default {
 <style scoped>
 .total-price > div {
   color: #6200ee;
+}
+.total-price > div:last-child {
+  font-size: 14px !important;
 }
 .application .theme--light.v-list, .theme--light .v-list {
   background-color: #fafafa;

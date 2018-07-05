@@ -67,33 +67,20 @@
                       <v-btn slot="activator" color="primary">Check Out</v-btn>
                       <v-card>
                         <v-card-title class="headline">Contract</v-card-title>
-                        <v-list-tile>
+                        <v-list-tile v-for="(device, index) in devices" :key="index">
                           <v-list-tile-avatar>
                             <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y">
                           </v-list-tile-avatar>
                           <v-list-tile-content>
-                            <v-list-tile-title>Air Conditioner</v-list-tile-title>
-                            <v-list-tile-sub-title>5,000 Wei</v-list-tile-sub-title>
+                            <v-list-tile-title>{{device._name}}</v-list-tile-title>
+                            <v-list-tile-sub-title>{{device._fee}} Wei</v-list-tile-sub-title>
                           </v-list-tile-content>
                         </v-list-tile>
-                        <v-list-tile>
-                          <v-list-tile-avatar>
-                            <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y">
-                          </v-list-tile-avatar>
-                          <v-list-tile-content>
-                            <v-list-tile-title>Computer</v-list-tile-title>
-                            <v-list-tile-sub-title>10,000 Wei</v-list-tile-sub-title>
-                          </v-list-tile-content>
-                        </v-list-tile>
+                        
                         <v-divider></v-divider>
                         <v-list-tile>
                           <v-list-tile-content>
-                            <v-list-tile-sub-title>Total Usage: 15,000Wei</v-list-tile-sub-title>
-                          </v-list-tile-content>
-                        </v-list-tile>
-                        <v-list-tile>
-                          <v-list-tile-content>
-                            <v-list-tile-sub-title>Refund: 2.91 Eth</v-list-tile-sub-title>
+                            <v-list-tile-sub-title>{{`Total Usage: ${getTotalUsage()} Wei`}}</v-list-tile-sub-title>
                           </v-list-tile-content>
                         </v-list-tile>
                         <v-divider></v-divider>
@@ -112,34 +99,14 @@
               </v-layout>
             </v-container>
 
-            <v-layout row wrap class="device-wrapper">
-              <v-flex>
+            <v-layout row wrap class="device-wrapper" v-for="(device, index) in devices" :key="index" v-if="index % 2 === 0 && index < devices.length - 1">
+              <v-flex v-for="(device, idx) in devices.slice(index, index + 2)" :key="idx">
                 <v-card>
                   <v-container fluid grid-list-lg>
                     <v-layout>
                       <v-flex xs12 flexbox>
-                        <span>Air Conditioner</span>
-                        <div class="price">$3.0</div>
-                      </v-flex>
-                    </v-layout>
-                    <v-layout>
-                      <v-flex xs12 flexbox>
-                        <v-btn block color="tertiary" dark>
-                          <v-icon>share</v-icon>
-                        </v-btn>
-                      </v-flex>
-                    </v-layout>
-                  </v-container>
-                </v-card>
-              </v-flex>
-
-              <v-flex>
-                <v-card>
-                  <v-container fluid grid-list-lg>
-                    <v-layout>
-                      <v-flex xs12 flexbox>
-                        <span>Computer</span>
-                        <div class="price">$3.0</div>
+                        <span>{{device._name}}</span>
+                        <div class="price">{{device._fee}} Wei</div>
                       </v-flex>
                     </v-layout>
                     <v-layout>
@@ -189,6 +156,21 @@ import { USER_ACCOUNT } from '../util/constant';
 
 export default {
   name: 'MyPage',
+  data() {
+    return {
+      name: '',
+      deposit: 0,
+      totalPrice: 10.772,
+      phone: '',
+      isCheckedin: true,
+      dialog: false,
+      owenrName: '',
+      ownerPhone: '',
+      homeDeposit: 0,
+      numDevices: 0,
+      devices: []     //_name, _type, _fee, _state
+    };
+  },
   methods: {
     goNextPage() {
       this.$router.push({ name: 'JoinContractPage' });
@@ -225,6 +207,36 @@ export default {
           });
       });
     },
+    async getDevices() {
+      const homeIndex = this.$route.query.homeIndex || 1;
+
+      await callMethod({
+        method: 'getIoTnet',
+        from: this.account,
+        param: [
+          homeIndex,
+        ],
+      }).then((res) => {
+        const ioTnet = res.data.ret;
+        console.log('ioTnet',ioTnet);
+
+        this.numDevices = ioTnet._numDevice;
+
+        ioTnet._permittedDevice.forEach(async (addressDevice) => {
+          await callMethod({
+            method: 'getDevice',
+            from: this.account,
+            param: [
+              addressDevice,
+            ],
+          }).then((res) => {
+            const device = res.data.ret;
+            console.log('device : ', device);
+            this.devices.push(device);
+          });
+        });
+      });
+    },
     checkOut() {
       const homeIndex = this.$route.query.homeIndex || 1;
 
@@ -245,21 +257,14 @@ export default {
         alert(error);
         this.goMain();
       });
+    },
+    getTotalUsage() {
+      let totalUsage = 0;
+      for (let device of this.devices) {
+        totalUsage += Number(device._fee);
+      }
+      return totalUsage;
     }
-  },
-  data() {
-    return {
-      name: '',
-      deposit: 0,
-      totalPrice: 10.772,
-      phone: '',
-      isCheckedin: true,
-      dialog: false,
-      ownerName: '',
-      ownerPhone: '',
-      homeDeposit: 0,
-      isRent : true,
-    };
   },
   mounted() {
     const payloadCallMethod = {
@@ -278,6 +283,7 @@ export default {
       // this.isCheckedin = data._isCheckedin;
     });
     this.getOwner();
+    this.getDevices();
   },
 };
 </script>
@@ -285,7 +291,7 @@ export default {
 
 <style scoped>
 .balance-amount {
-  font-size: 48px;
+  font-size: 36px;
 }
 .customer {
   font-weight: bold;
